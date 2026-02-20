@@ -154,11 +154,127 @@
                 </p>
 
             </fieldset>
+            <fieldset>
+                <legend>Activos Comprometidos</legend>
+            <p>
+                    <imput type="checkbox" id="equipo_final" name="Activos" value="endpoint">
+                <label for="equipo final" >equipos de usuario (PC/ LAPTOP)</label>
+            </p>
+            <p>
+                    <imput type="checkbox" id="servidor" name="Activos" value="server">
+                <label for="servidor" >Servidores de Aplicación</label>
+            </p>
+             <p>
+                    <imput type="checkbox" id="base_datos" name="Activos" value="devices">
+                <label for="base_datos" >Dispositivos moviles</label>
+            </p>
+             <p>
+                    <imput type="checkbox" id="red" name="Activos" value="network">
+                <label for="red" >Dispositivos de red (switch/router)</label>
+            </p>
+            </fieldset>
+            <fieldset>
+                <legend>Evidencia y respuesta inicial</legend>
+                <p>
+                    <label for="equipos">Numero de equipos comprometidos(1-100):</label>
+                    <!--Con el valor nomber podemos hacer un contador donde con el atributo min  definimos el valor minimo
+                    y con el mas el valor maximo que se puede agregar con el atributo value empezara por defecto en el valor asignado
+                    en este caso es el uno -->
+                    <imput type="number" id="equipos" name="equipos" min="1" mas="100" value="1">
+                </p>
+                <p>
+                    <label for="log">Adjuntar archivo de Eventos (.log/ .txt)</label>
+                    <br>
+                    <!--El valor file dejara cargar un archivo en ese espacio 
+                    el atributo acept indicara los tipos de archivos que se aceptaron-->
+                    <imput type="file" id="log" name="archivo_log" acept=".log, ,txt">
+                </p>
+                <p>
+                    <label for="Comentarios">Descripción de la anonalia</label>
+                    <br>
+                    <!--la etiqueta <textarea> dejara poner un texto largo en el cuadro
+                        el atributo rows indica la cantidad de filas
+                        el atributo cols indica el numero de columnas
+                        el atributo rows y cols nos daran el tamaño del cuadro como lo es el alto y ancho
+                        el atributo minlength y maxlength nos indicaran el minimo y maximo numero de caracteres 
+                        permitodos-->
+                    <textarea
+                    name="comentarios"
+                    id="comentarios"
+                    rows="4"
+                    cols="50"
+                    minlength="20"
+                    maxlength="50"
+                    placeholder="Minimo 20 caracteres sobre lo detectado..."
+                    ></textarea>
+                </p>
+                <p>
+                    <label for="certeza" >Nivel de Certeza de la anomalia</label>
+                    <br>
+                    <!--El valor range (slider) nos permite seleccionar un valor numerico dentro del
+                    rango definido, el atributo step nos va aindicar que el incremento del valor 
+                    con el atributo oninput le decimos que este pendiente de lo que el usuario quiere, 
+                    value es la propiedad que controla que texto se muestra dentro de la etiqueta-->>
+                    <imput type="range" id="certeza" name="certeza" min="0" max="100" 
+                    onimput="output_certeza.value = this.value + '%'" step="10">
+                     <output id="output_certeza">50%</output>   
+                </p>
+            </fieldset>
+            <!--Lo definimos como trampa de miel que es un campo donde los humanos no pueden ver
+            pero que los bots automatizan ya que lo detectan y llenan por error el atributo 
+            style="display: none" le dice al navegador que no debe ocupar espacio ni mostrarse en pantalla
+            con aria-hidden le decimos al software de asistencia que ignore este bloque
+            normalmente se puede navegar con la tecla tap por un formulario al poner tapindex="-1" el
+            navegador salta este campo-->
+            <div style="display: none;" aria-hidden="true">
+                <label for="bot_check">Si ves esto, no lo llenes</label>
+                <imput type="tex" id="bot_check" tabindex="-1">
+            </div>
+            <div style="margin-top: 30px; margin-bottom: 50px">
+            <!--En la etiqueta div definimos el estilo con dos valores margin-to que es el espacio de arriba
+            hacia abajo en pixeles y el margin-bottom es el espacio de abajo hacia arriba igual en pixeles
+            con el padding definimos las dimenciones del boton en pixeles
+            haci cuando el usuario se posa encima de este se visualiza la manita con cursor:pointer-->
+            <button type="button" onclick="confirmarenvio()" style="padding: 10px 20px; cursor:pointer">
+                Enviar reporte al centro de analisis
+            </button>
+            <button type="reset" style="padding: 10px 20px; cursor: pointer;">
+                Borrar Todo
+            </button>
+
+            </div>
 
         </form>
 
     </main>
+    <footer>
+        <p>
+         <stronge>Aviso de privacidad</stronge>
+         Toda la información enviada esta protegida bajo los protocolos que la ley general de protección de Datos
+        </p>
+        <p>Desarrollo para la clase de Desarrollo Web-2026</p>
+    </footer>
 
 </body>
+
+<!--La etiqueta script permite que usemos java script sobre los elemntos del html-->
+<script>
+       function confirmarenvio() {
+        const form=document-getElementById('mi formlario');
+        if(!form.checkvalidity())
+        {
+            form.reportvalidity();
+            return
+        }
+        const respuesta= confirm("¿estas segudo de enviar este reporte de accidente?");
+
+       if(respuesta)
+       {
+        alert("Reporte enviado exitosamente");
+        document.getElementById('miformulario').reset();
+       }
+       }
+       
+</script>
 
 </html>
